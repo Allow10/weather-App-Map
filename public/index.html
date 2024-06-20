@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Weather Map Application</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="bootstrap.css">
+    <script defer src="bootstrap.js"></script>
+  </head>
+  <body>
+    <div id="weather-container">
+      <h2>Weather App</h2>
+      <input type="text" id="city" placeholder="Enter City in Ibadan">
+      <button id="search" onclick="getWeather()">Search</button>
+      <img id="weather-icon" src="" alt="">
+      <div id="temp-div"></div>
+      <div id="weather-info"></div>
+      <div id="hourly-forcast"></div>
+      <script src="./script.js"></script>
+    </div>    
+  </body>
+</html>

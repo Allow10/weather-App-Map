@@ -9,15 +9,59 @@
     <script defer src="bootstrap.js"></script>
   </head>
   <body>
-    <div id="weather-container">
-      <h2>Weather App</h2>
-      <input type="text" id="city" placeholder="Enter City in Ibadan">
-      <button id="search" onclick="getWeather()">Search</button>
-      <img id="weather-icon" src="" alt="">
-      <div id="temp-div"></div>
-      <div id="weather-info"></div>
-      <div id="hourly-forcast"></div>
-      <script src="./script.js"></script>
-    </div>    
+    <div class="container">
+      
+      <div class="card text-center p-4 mb-4 mx-auto" style="max-width: 600px;">
+        <h3 class="weather">Weather Map Application</h3>
+        <input type="text" class="form-control mb-3" id="city" style="text-align: center;" placeholder="Enter city name">
+        <button class="btn btn-primary" id="fetchWeather" onclick="fetchWeather">Get Weather</button>
+      </div>
+      <div class="card text-center p-4 mx-auto" style="max-width: 600px;" id="show"></div>
+
+    </div>
+    
+      
+    
+    <script>
+      document.getElementById('fetchWeather').addEventListener('click', getInfo);
+      
+      async function getInfo() {
+      const city = document.getElementById('city').value;
+  
+     if (!city) {
+      alert('Please enter a city name.');
+      return;
+      }
+  
+     // Get the current date
+     const currentDate = new Date().toISOString().split('T')[0];
+
+     let endpoint = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=7cb3b3f468b1cdd3350a4197dd20464d`;
+
+     try {
+      const response = await fetch(endpoint);
+      const convertedResponse = await response.json();
+      // console.log(convertedResponse);
+
+      const temperatureKelvin = convertedResponse.main.temp;
+      const temperatureCelsius = temperatureKelvin - 273.15;
+      const humidity = convertedResponse.main.humidity;
+  
+
+      const show = document.getElementById('show');
+      show.innerHTML = `
+            <p class="city">City: ${city}</p>
+            <p class="date">Date: ${currentDate}</p>
+            <p class="temperature">Temperature: ${temperatureCelsius.toFixed(2)} °C</p>
+            <p class="humidity">Humidity: ${humidity}%</p>
+      `;
+      show.style.display ="block";
+         } catch (error) {
+         console.error('Error fetching data:', error);
+      }
+     }
+
+      
+    </script>
   </body>
 </html>
